@@ -31,7 +31,7 @@ class SeleccionAnimal(tk.Toplevel):
         botonera = tk.Frame(self)
         botonera.pack(pady=10)
 
-        boton_seleccionar = tk.Button(botonera, text="Seleccionar", command=self._seleccionar_animal)
+        boton_seleccionar = tk.Button(botonera, text="Notas", command=self._seleccionar_animal)
         boton_seleccionar.pack(side=tk.LEFT, padx=5)
 
         boton_agregar = tk.Button(botonera, text="Agregar Animal", command=self._agregar_animal)
