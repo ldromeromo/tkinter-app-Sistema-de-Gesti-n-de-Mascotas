@@ -272,6 +272,7 @@ eggs/
 lib/
 lib64/
 parts/
+sdist/
 var/
 wheels/
 share/python-wheels/
@@ -459,7 +460,6 @@ saves/
 *.com
 *.class
 *.dll
-*.exe
 *.o
 
 *.rpyc
