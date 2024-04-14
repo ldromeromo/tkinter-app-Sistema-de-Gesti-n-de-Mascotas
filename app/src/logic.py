@@ -15,14 +15,12 @@ def cargar_datos(archivo='datos.json'):
         return []
 
 def agregar_tarea(lista_nota, tarea):
-    """Agrega una tarea a la lista."""
     if tarea != "":
         lista_nota.insert("end", tarea)
         return True
     return False
 
 def eliminar_tarea(lista_nota):
-    """Elimina la tarea seleccionada de la lista."""
     try:
         indice = lista_nota.curselection()[0]
         lista_nota.delete(indice)
