@@ -3,7 +3,7 @@
 import tkinter as tk
 from tkinter import messagebox
 from ..logic import guardar_datos, consultar
-import datetime  # Importamos datetime para manejar las fechas y horas
+import datetime
 import os
 
 class Aplicacion(tk.Toplevel):
@@ -16,27 +16,21 @@ class Aplicacion(tk.Toplevel):
         self._crear_widgets()
 
     def _crear_widgets(self):
-        # Configurar la grid
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=3)
 
-        # Listbox para mostrar las tareas
         self.lista_tareas = tk.Listbox(self, height=10, width=50)
         self.lista_tareas.grid(row=0, column=0, rowspan=4, padx=10, pady=20, sticky="nsew")
 
-        # Carga las tareas existentes en el Listbox
         for tarea in self.animal['notas']:
             self.lista_tareas.insert(tk.END, tarea)
 
-        # Entrada para nuevas tareas
         self.entrada_tarea = tk.Entry(self, width=40)
         self.entrada_tarea.grid(row=0, column=1, padx=10, pady=10, sticky="ew")
 
-        # Botón para agregar tareas
         boton_agregar = tk.Button(self, text="Agregar nota", command=self._agregar_tarea)
         boton_agregar.grid(row=1, column=1, padx=10, pady=10, sticky="ew")
 
-        # Botón para eliminar tareas
         boton_eliminar = tk.Button(self, text="Eliminar nota", command=self._eliminar_tarea)
         boton_eliminar.grid(row=2, column=1, padx=10, pady=10, sticky="ew")
 
@@ -46,9 +40,7 @@ class Aplicacion(tk.Toplevel):
     def _agregar_tarea(self):
         tarea = self.entrada_tarea.get().strip()
         if tarea:
-            # Obtener la fecha y hora actual
             timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
-            # Formatear la tarea con la fecha y hora
             tarea_con_fecha = f"{timestamp}: {tarea}"
             self.lista_tareas.insert(tk.END, tarea_con_fecha)
             self.animal['notas'].append(tarea_con_fecha)

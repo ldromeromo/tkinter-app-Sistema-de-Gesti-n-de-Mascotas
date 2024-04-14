@@ -5,7 +5,7 @@ from src.gui.menu import SeleccionAnimal
 
 def main():
     root = tk.Tk()
-    root.withdraw()  # Oculta la ventana principal
+    root.withdraw()
     app = SeleccionAnimal(root)
     app.mainloop()
 

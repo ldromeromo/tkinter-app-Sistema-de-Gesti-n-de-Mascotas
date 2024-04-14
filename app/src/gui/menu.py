@@ -9,7 +9,7 @@ from ..logic import cargar_datos, guardar_datos, consultar
 class SeleccionAnimal(tk.Toplevel):
     def __init__(self, parent):
         super().__init__(parent)
-        self.title("Sistema de Gestión de Mascotas")
+        self.title("Sistema de Gestión de Animales")
         self.animales = cargar_datos()
         self.tipos_animales, self.status = consultar("tipos-animales")
         self._crear_lista_animales()
@@ -27,7 +27,6 @@ class SeleccionAnimal(tk.Toplevel):
         for animal in self.animales:
             self.tree.insert("", "end", values=(animal['nombre'], animal['tipo'], animal['edad']))
 
-        # Botonera
         botonera = tk.Frame(self)
         botonera.pack(pady=10)
 
@@ -93,10 +92,8 @@ class SeleccionAnimal(tk.Toplevel):
         if seleccionado:
             item = self.tree.item(seleccionado)
             animal_nombre = item['values'][0]
-            # Buscar el índice del animal en la lista de animales basado en el nombre
             animal_index = next((index for index, a in enumerate(self.animales) if a['nombre'] == animal_nombre), None)
             if animal_index is not None:
-                # Aquí pasamos el índice del animal y la lista completa de animales
                 ventana_detalles = DetalleMascota(self, animal_index, self.animales)
                 ventana_detalles.grab_set()
             else:
@@ -109,7 +106,6 @@ class SeleccionAnimal(tk.Toplevel):
         if seleccionado:
             item = self.tree.item(seleccionado)
             animal_nombre = item['values'][0]
-            # Actualizar la lista de animales y la vista
             self.animales = [animal for animal in self.animales if animal['nombre'] != animal_nombre]
             self._actualizar_vista()
             guardar_datos(self.animales)

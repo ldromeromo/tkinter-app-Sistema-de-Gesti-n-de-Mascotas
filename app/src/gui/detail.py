@@ -17,7 +17,6 @@ class DetalleMascota(tk.Toplevel):
     def _crear_widgets(self):
         self.grid_columnconfigure(1, weight=1)  
 
-        # Etiquetas y entradas para peso y enfermedades
         tk.Label(self, text="Peso (kg):").grid(row=0, column=1, sticky="e")
         self.entry_peso = tk.Entry(self)
         self.entry_peso.insert(0, self.animal.get('peso', ''))
@@ -28,12 +27,9 @@ class DetalleMascota(tk.Toplevel):
         self.entry_enfermedades.insert(0, self.animal.get('enfermedades', ''))
         self.entry_enfermedades.grid(row=1, column=2, padx=20, pady=(0, 20), sticky="ew")
 
-        # Botones para cargar imagen y guardar datos
-        tk.Button(self, text="Cargar Imagen", command=self._cargar_imagen).grid(row=2, column=1, columnspan=2, pady=10, sticky="ew")
         tk.Button(self, text="Guardar", command=self._guardar_datos).grid(row=3, column=1, columnspan=2, pady=10, sticky="ew")
 
-        # Detalles del peso ideal y comida recomendada
-        tk.Label(self, text="Peso Ideal:").grid(row=0, column=3, padx=10, pady=5, sticky="w")
+        tk.Label(self, text="Peso ideal:").grid(row=0, column=3, padx=10, pady=5, sticky="w")
         self.label_peso_ideal = tk.Label(self, text="Calculando...")
         self.label_peso_ideal.grid(row=0, column=4, padx=10, pady=5, sticky="w")
 
@@ -41,7 +37,7 @@ class DetalleMascota(tk.Toplevel):
         self.label_estado_peso = tk.Label(self, text="Calculando...")
         self.label_estado_peso.grid(row=1, column=4, padx=10, pady=5, sticky="w")
 
-        tk.Label(self, text="Comida Recomendada:").grid(row=2, column=3, padx=10, pady=5, sticky="w")
+        tk.Label(self, text="Comida recomendada:").grid(row=2, column=3, padx=10, pady=5, sticky="w")
         self.label_comida = tk.Label(self, text="Calculando...")
         self.label_comida.grid(row=2, column=4, padx=10, pady=5, sticky="w")
 
@@ -61,7 +57,6 @@ class DetalleMascota(tk.Toplevel):
         edad = self.animal.get('edad', 1)
         tipo_animal = self.animal['tipo']
         
-        # Suponiendo que `consultar` es una función definida en `logic.py` para hacer llamadas a la API
         params = {"tipo_animal": tipo_animal, "peso": peso_actual, "edad": edad}
         response, status = consultar("recomendacion", params)
         
@@ -79,8 +74,8 @@ class DetalleMascota(tk.Toplevel):
     def _guardar_datos(self):
         self.animal['peso'] = self.entry_peso.get()
         self.animal['enfermedades'] = self.entry_enfermedades.get()
-        self.animales[self.animal_index] = self.animal  # Asegúrate de actualizar la lista de animales
-        guardar_datos(self.animales)  # Guardar los datos en el archivo JSON
+        self.animales[self.animal_index] = self.animal 
+        guardar_datos(self.animales)
         self._actualizar_detalles()
         
     def _ver_detalles(self):
@@ -88,7 +83,6 @@ class DetalleMascota(tk.Toplevel):
         if seleccionado:
             item = self.tree.item(seleccionado)
             animal_nombre = item['values'][0]
-            # Find the index of the animal in the list using the name
             animal_index = next((index for index, a in enumerate(self.animales) if a['nombre'] == animal_nombre), None)
             if animal_index is not None:
                 ventana_detalles = DetalleMascota(self, animal_index, self.animales)
@@ -98,11 +92,9 @@ class DetalleMascota(tk.Toplevel):
         else:
             messagebox.showwarning("Warning", "Please select an animal.")
 
-
-# Ejemplo de uso
 if __name__ == "__main__":
     root = tk.Tk()
     root.withdraw()
-    animales = cargar_datos()  # Carga los datos de los animales
-    app = DetalleMascota(root, 0, animales)  # Ejemplo con el índice del primer animal
+    animales = cargar_datos()
+    app = DetalleMascota(root, 0, animales)
     app.mainloop()

@@ -30,15 +30,12 @@ def get_recomendacion():
 @app.route("/export-notas/<animal_name>", methods=["GET"])
 def export_notas(animal_name):
     try:
-        # Sanitize or validate animal_name if necessary
         if '/' in animal_name or '\\' in animal_name:
             abort(400, description="Invalid animal name")
 
-        # Load the animals data from the JSON file
         with open('datos.json') as f:
             animales = json.load(f)
         
-        # Find the specific animal's notes
         animal = next((a for a in animales if a['nombre'] == animal_name), None)
         if animal:
             df = pd.DataFrame(animal['notas'], columns=['Notas'])
